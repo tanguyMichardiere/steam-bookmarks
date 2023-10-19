@@ -11,16 +11,15 @@ export const moveLink = action(
     if (link !== undefined) {
       const adjacentIndex = direction === "left" ? linkIndex - 1 : linkIndex + 1;
       const adjacentLink = gameSettings.links[adjacentIndex];
-      if (adjacentLink !== undefined)
-        $gameSettings.setKey(gameId, {
-          ...gameSettings,
-          links: gameSettings.links.toSpliced(
-            direction === "left" ? adjacentIndex : linkIndex,
-            2,
-            direction === "left" ? link : adjacentLink,
-            direction === "left" ? adjacentLink : link,
-          ),
-        });
+      if (adjacentLink !== undefined) {
+        gameSettings.links.splice(
+          direction === "left" ? adjacentIndex : linkIndex,
+          2,
+          direction === "left" ? link : adjacentLink,
+          direction === "left" ? adjacentLink : link,
+        );
+        $gameSettings.setKey(gameId, { ...gameSettings, links: [...gameSettings.links] });
+      }
     }
   },
 );
