@@ -21,8 +21,7 @@ export default function Searchbar(props: Props): JSX.Element {
     if (searchInput.current !== null) {
       const search = searchInput.current.value.trim();
       if (search.length > 0) {
-        window.open(searchUrl.replace("%s", searchInput.current.value.trim()));
-        searchInput.current.value = searchInput.current.defaultValue;
+        window.location.href = searchUrl.replace("%s", search);
       }
     }
   }
