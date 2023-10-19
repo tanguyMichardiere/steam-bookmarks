@@ -23,7 +23,7 @@ const defaultGameSettings = (gameId: string): GameSettings => ({
   searchPrefix: "",
   links: [
     { id: 0, name: "Steam Community", href: `https://steamcommunity.com/app/${gameId}` },
-    { id: 1, name: "SteamDB", href: `https://steamdb.info/app/${gameId}/charts` },
+    { id: 1, name: "SteamDB", href: `https://steamdb.info/app/${gameId}/charts/` },
     { id: 2, name: "Steambase", href: `https://steambase.io/games/${gameId}` },
     {
       id: 3,
