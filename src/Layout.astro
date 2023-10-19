@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar.astro";
 import "./styles.css";
 
 type Props = {
-  playerSummary: PlayerSummary;
+  playerSummary?: PlayerSummary;
 };
 
 const { props } = Astro;
@@ -18,7 +18,7 @@ const { props } = Astro;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body class="h-full p-4">
-    <Navbar playerSummary={props.playerSummary} />
+    {props.playerSummary !== undefined && <Navbar playerSummary={props.playerSummary} />}
     <main class="mx-auto flex max-w-screen-lg flex-col items-center gap-4">
       <slot />
     </main>

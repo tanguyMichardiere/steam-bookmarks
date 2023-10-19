@@ -64,7 +64,7 @@ export default function Link(props: Props): JSX.Element {
   }
 
   return (
-    <a class="btn h-24 flex-col gap-4" href={props.link.href} rel="noreferrer" target="_blank">
+    <a class="btn h-24 flex-col gap-4" href={props.link.href}>
       <img
         alt={props.link.name}
         class="h-6 w-6"
