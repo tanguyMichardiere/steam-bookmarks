@@ -1,0 +1,30 @@
+---
+import Layout from "../../../Layout.astro";
+import { getPlayerSummary, type PlayerSummary } from "../../../api/getPlayerSummary";
+import Links from "../../../components/Links/index.astro";
+import Searchbar from "../../../components/Searchbar";
+
+type Params = {
+  steamId: string;
+  gameId: string;
+};
+
+const params = Astro.params as Params;
+
+let playerSummary: PlayerSummary;
+try {
+  playerSummary = await getPlayerSummary(params.steamId);
+} catch (error) {
+  console.error(error);
+  return Astro.redirect("/");
+}
+
+if (playerSummary.gameid === undefined) {
+  return Astro.redirect(`/${params.steamId}`);
+}
+---
+
+<Layout playerSummary={playerSummary}>
+  <Searchbar gameId={params.gameId} client:only />
+  <Links steamId={params.steamId} gameId={params.gameId} />
+</Layout>

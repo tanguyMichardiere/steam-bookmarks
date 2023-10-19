@@ -1,0 +1,25 @@
+---
+import Layout from "../../Layout.astro";
+import type { PlayerSummary } from "../../api/getPlayerSummary";
+import { getPlayerSummary } from "../../api/getPlayerSummary";
+
+type Params = {
+  steamId: string;
+};
+
+const params = Astro.params as Params;
+
+let playerSummary: PlayerSummary;
+try {
+  playerSummary = await getPlayerSummary(params.steamId);
+} catch (error) {
+  console.error(error);
+  return Astro.redirect("/");
+}
+
+if (playerSummary.gameid !== undefined) {
+  return Astro.redirect(`/${params.steamId}/${playerSummary.gameid}`);
+}
+---
+
+<Layout playerSummary={playerSummary}>Not currently playing</Layout>

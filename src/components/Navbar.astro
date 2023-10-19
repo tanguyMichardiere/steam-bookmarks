@@ -1,0 +1,17 @@
+---
+import type { PlayerSummary } from "../api/getPlayerSummary";
+
+type Props = {
+  playerSummary: PlayerSummary;
+};
+
+const { props } = Astro;
+---
+
+<nav class="navbar">
+  <h1 class="navbar-start">{props.playerSummary.gameextrainfo}</h1>
+  <a class="link navbar-end flex gap-2" href={`/${props.playerSummary.steamid}`}>
+    <p>{props.playerSummary.personaname}</p>
+    <img class="avatar h-12 w-12 rounded" src={props.playerSummary.avatarfull} />
+  </a>
+</nav>

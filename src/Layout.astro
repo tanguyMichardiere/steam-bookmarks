@@ -1,0 +1,26 @@
+---
+import type { PlayerSummary } from "./api/getPlayerSummary";
+import Navbar from "./components/Navbar.astro";
+import "./styles.css";
+
+type Props = {
+  playerSummary: PlayerSummary;
+};
+
+const { props } = Astro;
+---
+
+<html class="h-full" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="h-full p-4">
+    <Navbar playerSummary={props.playerSummary} />
+    <main class="mx-auto flex max-w-screen-lg flex-col items-center gap-4">
+      <slot />
+    </main>
+  </body>
+</html>
