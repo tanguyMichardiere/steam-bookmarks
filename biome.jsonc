@@ -1,0 +1,80 @@
+{
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on",
+				"useSortedAttributes": "on",
+				"useSortedKeys": "on",
+				"useSortedProperties": "on"
+			}
+		}
+	},
+	"formatter": {
+		"enabled": true,
+		"lineWidth": 100
+	},
+	"linter": {
+		"domains": {
+			"next": "recommended",
+			"project": "recommended",
+			"react": "recommended"
+		},
+		"enabled": true,
+		"rules": {
+			"recommended": true
+		}
+	},
+	"overrides": [
+		{
+			// VSCode JSON files are actually JSONC
+			"includes": [".vscode/*.json"],
+			"json": {
+				"parser": {
+					"allowComments": true
+				}
+			}
+		},
+		{
+			"includes": [
+				// NextJS component files use default exports
+				"src/app/**/default.tsx",
+				"src/app/**/error.tsx",
+				"src/app/**/layout.tsx",
+				"src/app/**/loading.tsx",
+				"src/app/**/not-found.tsx",
+				"src/app/**/page.tsx",
+				"src/app/**/template.tsx",
+				"src/middleware.ts",
+				// most config files use default exports
+				"*.config.ts",
+				"*.config.mjs"
+			],
+			"linter": {
+				"rules": {
+					"style": {
+						"noDefaultExport": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				// environment variable names are not in camelCase
+				"src/env.ts"
+			],
+			"linter": {
+				"rules": {
+					"style": {
+						"useNamingConvention": "off"
+					}
+				}
+			}
+		}
+	],
+	"vcs": {
+		"clientKind": "git",
+		"enabled": true,
+		"useIgnoreFile": true
+	}
+}
