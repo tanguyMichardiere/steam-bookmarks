@@ -33,7 +33,5 @@ export async function getPlayerSummary(steamId: string): Promise<PlayerSummary> 
 		logger.info("player not found", { steamId });
 		throw new Error("Not Found");
 	}
-	playerSummary.gameid = "gameid";
-	playerSummary.gameextrainfo = "gameextrainfo";
 	return playerSummary;
 }

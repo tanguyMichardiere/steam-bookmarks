@@ -28,14 +28,7 @@ export function createGameSettingsStore(gameId: string) {
 				addLink(link) {
 					set(({ links }) => ({ links: [...links, { id: Date.now(), ...link }] }));
 				},
-				links: [
-					{ href: `https://steamcommunity.com/app/17`, id: 6, name: "Steam Community 2" },
-					{
-						href: `https://steamcommunity.com/app/18`,
-						id: 7,
-						name: "Steam Community 3",
-					},
-				],
+				links: [],
 				moveLink(linkId: number, direction: "left" | "right") {
 					set(({ links }) => {
 						// TODO: refactor

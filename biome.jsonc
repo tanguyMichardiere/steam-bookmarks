@@ -70,6 +70,19 @@
 					}
 				}
 			}
+		},
+		{
+			"includes": [
+				// styles.css is a TailwindCSS file
+				"src/app/styles.css"
+			],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noUnknownProperty": "off"
+					}
+				}
+			}
 		}
 	],
 	"vcs": {

@@ -2,7 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import "./globals.css";
+import "./styles.css";
 
 export const metadata: Metadata = {
 	description: "A home page for the Steam overlay browser",
