@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
+import "server-only";
 import { getPlayerSummary } from "../../../api/player-summary";
+import { logger } from "../../../logger";
 import type { SteamIdParams } from "../params";
 import type { GameIdParams } from "./params";
 
@@ -15,6 +17,7 @@ export default async function GameLayout(props: Props) {
 	const playerSummary = await getPlayerSummary(params.steamId);
 
 	if (playerSummary.gameid !== params.gameId) {
+		logger.info("redirecting to player page");
 		redirect(`/${params.steamId}`);
 	}
 

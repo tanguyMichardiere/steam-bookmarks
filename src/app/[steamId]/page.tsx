@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
+import "server-only";
 import { getPlayerSummary } from "../../api/player-summary";
+import { logger } from "../../logger";
 import type { SteamIdParams } from "./params";
 
 type Props = Readonly<{
@@ -12,6 +14,7 @@ export default async function PlayerPage(props: Props) {
 	const playerSummary = await getPlayerSummary(params.steamId);
 
 	if (playerSummary.gameid !== undefined) {
+		logger.debug("redirecting to game page");
 		redirect(`/${playerSummary.steamid}/${playerSummary.gameid}`);
 	}
 

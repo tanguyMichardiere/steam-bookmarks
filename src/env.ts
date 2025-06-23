@@ -6,6 +6,7 @@ export const env = createEnv({
 	experimental__runtimeEnv: {},
 	server: {
 		API_KEY: z.string(),
+		LOG_LEVEL: z.enum(["debug", "info", "warning", "error", "silent"]).default("warning"),
 		NODE_ENV: z.enum(["development", "production", "test"]),
 	},
 });

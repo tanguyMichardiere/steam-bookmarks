@@ -1,3 +1,4 @@
+import "server-only";
 import type { SteamIdParams } from "../params";
 import type { GameIdParams } from "./params";
 
