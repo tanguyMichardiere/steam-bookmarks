@@ -5,6 +5,7 @@ export const env = createEnv({
 	emptyStringAsUndefined: true,
 	experimental__runtimeEnv: {},
 	server: {
+		API_KEY: z.string(),
 		NODE_ENV: z.enum(["development", "production", "test"]),
 	},
 });

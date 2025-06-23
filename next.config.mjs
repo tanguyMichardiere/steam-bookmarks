@@ -21,6 +21,11 @@ let nextConfig = {
 	headers() {
 		return Promise.resolve([{ headers, source: "/:path*" }]);
 	},
+	images: {
+		remotePatterns: [
+			{ hostname: "avatars.steamstatic.com", pathname: "**", port: "", protocol: "https" },
+		],
+	},
 	poweredByHeader: false,
 	reactStrictMode: true,
 	// type checking is done in CI
