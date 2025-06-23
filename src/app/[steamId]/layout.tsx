@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import "server-only";
 import { getPlayerSummary } from "../../api/player-summary";
 import { Navbar } from "../../components/navbar";
 import type { SteamIdParams } from "./params";

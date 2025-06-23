@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import "server-only";
 import type { PlayerSummary } from "../api/player-summary";
 
 type Props = Readonly<{

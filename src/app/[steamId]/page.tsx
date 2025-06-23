@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import "server-only";
 import { getPlayerSummary } from "../../api/player-summary";
 import { logger } from "../../logger";
 import type { SteamIdParams } from "./params";

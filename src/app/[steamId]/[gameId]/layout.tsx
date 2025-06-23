@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
-import "server-only";
 import { getPlayerSummary } from "../../../api/player-summary";
 import { logger } from "../../../logger";
 import type { SteamIdParams } from "../params";
