@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 import { getPlayerSummary } from "../../../api/player-summary";
 import { logger } from "../../../logger";
+import { GameSettingsStoreProvider } from "../../../stores/game-settings/context/provider";
 import type { SteamIdParams } from "../params";
 import type { GameIdParams } from "./params";
 
@@ -20,5 +21,7 @@ export default async function GameLayout(props: Props) {
 		redirect(`/${params.steamId}`);
 	}
 
-	return <>{props.children}</>;
+	return (
+		<GameSettingsStoreProvider gameId={params.gameId}>{props.children}</GameSettingsStoreProvider>
+	);
 }

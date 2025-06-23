@@ -4,6 +4,6 @@
 @plugin "@tailwindcss/forms";
 
 @plugin "daisyui" {
-	themes: dark;
+	themes: dark --default;
 	logs: false;
 }

@@ -24,6 +24,12 @@ let nextConfig = {
 	images: {
 		remotePatterns: [
 			{ hostname: "avatars.steamstatic.com", pathname: "**", port: "", protocol: "https" },
+			{
+				hostname: "s2.googleusercontent.com",
+				pathname: "/s2/favicons",
+				port: "",
+				protocol: "https",
+			},
 		],
 	},
 	poweredByHeader: false,
