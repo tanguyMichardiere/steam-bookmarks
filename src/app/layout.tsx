@@ -6,7 +6,7 @@ import "./styles.css";
 
 export const metadata: Metadata = {
 	title: "Steam Bookmarks",
-	description: "A home page for the Steam overlay browser",
+	description: "Home page for the Steam overlay browser",
 };
 
 type Props = Readonly<{
