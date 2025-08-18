@@ -20,7 +20,7 @@ export async function getPlayerSummary(steamId: string): Promise<PlayerSummary> 
 	const url = new URL("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002");
 	url.searchParams.set("key", env.API_KEY);
 	url.searchParams.set("steamids", steamId);
-	const response = await fetch(url, { cache: "force-cache" });
+	const response = await fetch(url, { cache: "force-cache", next: {revalidate: 5} });
 	if (!response.ok) {
 		const errorText = await response.text();
 		logger.warning("error fetching player summary", { errorText, steamId });
