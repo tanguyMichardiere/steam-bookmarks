@@ -1,9 +1,3 @@
 {
-  "recommendations": [
-    "astro-build.astro-vscode",
-    "bradlc.vscode-tailwindcss",
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "ms-edgedevtools.vscode-edge-devtools"
-  ]
+	"recommendations": ["biomejs.biome", "bradlc.vscode-tailwindcss"]
 }

@@ -1,20 +1,19 @@
-import type { JSX } from "preact/jsx-runtime";
+type Props = Readonly<{
+	className: string;
+}>;
 
-type Props = {
-  class: string;
-};
-
-export default function ArrowRight(props: Props): JSX.Element {
-  return (
-    <svg
-      className={props.class}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
+export function ArrowRight(props: Props) {
+	return (
+		<svg
+			className={props.className}
+			fill="none"
+			stroke="currentColor"
+			strokeWidth={1.5}
+			viewBox="0 0 24 24"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<title>arrow right</title>
+			<path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" strokeLinecap="round" strokeLinejoin="round" />
+		</svg>
+	);
 }

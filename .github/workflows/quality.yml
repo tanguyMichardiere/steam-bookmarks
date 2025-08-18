@@ -4,39 +4,22 @@ on:
   push:
 
 jobs:
-  check-format:
-    name: Check format
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: npm
-      - name: Install dependencies
-        run: npm clean-install
-      - name: Check format
-        run: npm run check-format
-
   lint:
     name: Lint
     runs-on: ubuntu-latest
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
           cache: npm
       - name: Install dependencies
         run: npm clean-install
       - name: Lint
-        run: npm run lint
+        run: npm run lint -- --reporter=github
 
   check-types:
     name: Check types
@@ -44,13 +27,30 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
           cache: npm
       - name: Install dependencies
         run: npm clean-install
       - name: Check types
         run: npm run check-types
+
+  check-dead-code:
+    name: Check dead code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v5
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm clean-install
+      - name: Check dead code
+        run: npm run check-dead-code

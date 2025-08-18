@@ -1,24 +1,23 @@
-import type { JSX } from "preact/jsx-runtime";
+type Props = Readonly<{
+	className: string;
+}>;
 
-type Props = {
-  class: string;
-};
-
-export default function MagnifyingGlass(props: Props): JSX.Element {
-  return (
-    <svg
-      className={props.class}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+export function MagnifyingGlass(props: Props) {
+	return (
+		<svg
+			className={props.className}
+			fill="none"
+			stroke="currentColor"
+			strokeWidth={1.5}
+			viewBox="0 0 24 24"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<title>magnifying glass</title>
+			<path
+				d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+				strokeLinecap="round"
+				strokeLinejoin="round"
+			/>
+		</svg>
+	);
 }
