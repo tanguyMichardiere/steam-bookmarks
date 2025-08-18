@@ -1,4 +1,4 @@
-import { NewLinkForm } from "../../../../components/new-link-form";
+import { NewBookmarkForm } from "../../../../components/new-bookmark-form";
 import type { SteamIdParams } from "../../params";
 import type { GameIdParams } from "../params";
 
@@ -9,5 +9,5 @@ type Props = Readonly<{
 export default async function GamePage(props: Props) {
 	const params = await props.params;
 
-	return <NewLinkForm gameId={params.gameId} steamId={params.steamId} />;
+	return <NewBookmarkForm gameId={params.gameId} steamId={params.steamId} />;
 }

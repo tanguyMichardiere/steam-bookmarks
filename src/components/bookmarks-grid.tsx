@@ -2,18 +2,18 @@
 
 import { useState } from "react";
 import { useGameSettingsStore } from "../stores/game-settings/context/hook";
+import { BookmarkCard } from "./bookmark-card";
 import { Check } from "./icons/Check";
 import { PencilSquare } from "./icons/PencilSquare";
 import { Plus } from "./icons/Plus";
-import { LinkCard } from "./link-card";
 
 type Props = Readonly<{
 	steamId: string;
 	gameId: string;
 }>;
 
-export function LinksGrid(props: Props) {
-	const baseLinks = [
+export function BookmarksGrid(props: Props) {
+	const defaultBookmarks = [
 		{ href: `https://steamcommunity.com/app/${props.gameId}`, id: 0, name: "Steam Community" },
 		{ href: `https://steamdb.info/app/${props.gameId}/charts/`, id: 1, name: "SteamDB" },
 		{ href: `https://steambase.io/games/${props.gameId}`, id: 2, name: "Steambase" },
@@ -24,7 +24,7 @@ export function LinksGrid(props: Props) {
 		},
 	];
 
-	const links = useGameSettingsStore((state) => state.links);
+	const bookmarks = useGameSettingsStore((state) => state.bookmarks);
 
 	const [editing, setEditing] = useState(false);
 
@@ -38,11 +38,11 @@ export function LinksGrid(props: Props) {
 
 	return (
 		<>
-			{baseLinks.map((link) => (
-				<LinkCard editing={false} key={link.id} link={link} />
+			{defaultBookmarks.map((bookmark) => (
+				<BookmarkCard editing={false} key={bookmark.id} bookmark={bookmark} />
 			))}
-			{links.map((link) => (
-				<LinkCard editing={editing} key={link.id} link={link} />
+			{bookmarks.map((bookmark) => (
+				<BookmarkCard editing={editing} key={bookmark.id} bookmark={bookmark} />
 			))}
 			{editing ? (
 				<button
@@ -57,15 +57,15 @@ export function LinksGrid(props: Props) {
 				<div className="join">
 					<a
 						className="btn btn-ghost join-item h-24 grow"
-						href={`/${props.steamId}/${props.gameId}/new-link`}
-						title="add link"
+						href={`/${props.steamId}/${props.gameId}/new-bookmark`}
+						title="add bookmark"
 					>
 						<Plus className="w=6 h-6" />
 					</a>
 					<button
 						className="btn btn-ghost join-item h-24 grow"
 						onClick={startEditing}
-						title="edit links"
+						title="edit bookmarks"
 						type="button"
 					>
 						<PencilSquare className="h-6 w-6" />

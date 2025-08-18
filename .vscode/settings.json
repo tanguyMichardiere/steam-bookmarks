@@ -26,8 +26,8 @@
 	"explorer.fileNesting.enabled": true,
 	"explorer.fileNesting.patterns": {
 		".env": ".env*",
-		"next.config.mjs": "biome.jsonc, vercel.json, tsconfig.json, *.config.ts, *.config.mjs, *.config.js",
-		"package.json": "pnpm-lock.yaml",
+		"next.config.mjs": "biome.jsonc, tsconfig.json, *.config.ts, *.config.mjs, *.config.js",
+		"package.json": "package-lock.json",
 		"README.md": "LICENSE"
 	},
 	"files.associations": {

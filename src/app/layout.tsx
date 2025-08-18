@@ -5,8 +5,8 @@ import type { ReactNode } from "react";
 import "./styles.css";
 
 export const metadata: Metadata = {
+	title: "Steam Bookmarks",
 	description: "A home page for the Steam overlay browser",
-	title: "Steam Overlay",
 };
 
 type Props = Readonly<{

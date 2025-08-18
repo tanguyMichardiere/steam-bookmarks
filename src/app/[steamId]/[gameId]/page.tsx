@@ -1,4 +1,4 @@
-import { LinksGrid } from "../../../components/links-grid";
+import { BookmarksGrid } from "../../../components/bookmarks-grid";
 import { Searchbar } from "../../../components/searchbar";
 import type { SteamIdParams } from "../params";
 import type { GameIdParams } from "./params";
@@ -14,7 +14,7 @@ export default async function GamePage(props: Props) {
 		<>
 			<Searchbar />
 			<div className="grid w-full grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
-				<LinksGrid gameId={params.gameId} steamId={params.steamId} />
+				<BookmarksGrid gameId={params.gameId} steamId={params.steamId} />
 			</div>
 		</>
 	);

@@ -1,3 +1,4 @@
+import "client-only";
 import { persist } from "zustand/middleware";
 import { createStore } from "zustand/vanilla";
 
@@ -15,7 +16,9 @@ export function createSettingsStore() {
 	return createStore<SettingsStore>()(
 		persist(
 			(set) => ({
+				// state
 				searchUrl: "https://www.google.com/search?q=%s",
+				// actions
 				setSearchUrl(searchUrl: string) {
 					set({ searchUrl });
 				},

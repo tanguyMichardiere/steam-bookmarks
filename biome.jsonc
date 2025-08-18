@@ -1,12 +1,15 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"vcs": {
+		"clientKind": "git",
+		"enabled": true,
+		"useIgnoreFile": true
+	},
 	"assist": {
 		"actions": {
 			"source": {
 				"organizeImports": "on",
-				"useSortedAttributes": "on",
-				"useSortedKeys": "on",
-				"useSortedProperties": "on"
+				"useSortedAttributes": "on"
 			}
 		}
 	},
@@ -84,10 +87,5 @@
 				}
 			}
 		}
-	],
-	"vcs": {
-		"clientKind": "git",
-		"enabled": true,
-		"useIgnoreFile": true
-	}
+	]
 }

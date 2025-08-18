@@ -10,10 +10,10 @@ type Props = Readonly<{
 	gameId: string;
 }>;
 
-export function NewLinkForm(props: Props) {
+export function NewBookmarkForm(props: Props) {
 	const router = useRouter();
 
-	const addLink = useGameSettingsStore((state) => state.addLink);
+	const addBookmark = useGameSettingsStore((state) => state.addBookmark);
 
 	const nameInput = useRef<HTMLInputElement>(null);
 	const hrefInput = useRef<HTMLInputElement>(null);
@@ -24,7 +24,7 @@ export function NewLinkForm(props: Props) {
 			const name = nameInput.current.value.trim();
 			const href = hrefInput.current.value.trim();
 			if (name.length > 0 && href.length > 0) {
-				addLink({ href, name });
+				addBookmark({ href, name });
 				router.replace(`/${props.steamId}/${props.gameId}`);
 			}
 		}

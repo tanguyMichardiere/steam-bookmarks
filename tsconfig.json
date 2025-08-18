@@ -1,27 +1,36 @@
 {
 	"compilerOptions": {
-		"allowJs": true,
-		"checkJs": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"importHelpers": true,
-		"incremental": true,
-		"isolatedModules": true,
-		"jsx": "preserve",
-		"lib": ["DOM", "DOM.Iterable", "ESNext"],
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
-		"noEmit": true,
+		// Type Checking
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitReturns": true,
 		"noUncheckedIndexedAccess": true,
-		"plugins": [{ "name": "next" }],
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
 		"strict": true,
+		// Modules
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"resolveJsonModule": true,
+		"types": ["@total-typescript/ts-reset"],
+		// Emit
+		"importHelpers": true,
+		"noEmit": true,
+		// JavaScript Support
+		"allowJs": true,
+		"checkJs": true,
+		// Editor Support
+		"plugins": [{ "name": "next" }],
+		// Interop Constraints
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
+		// Language and Environment
+		"jsx": "preserve",
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"target": "ES2017",
-		"types": ["@total-typescript/ts-reset"]
+		// Projects
+		"incremental": true,
+		// Completeness
+		"skipLibCheck": true
 	},
-	"exclude": ["node_modules"],
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.mjs"]
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "next.config.mjs"],
+	"exclude": ["node_modules"]
 }

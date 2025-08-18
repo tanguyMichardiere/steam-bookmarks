@@ -1,6 +1,6 @@
-import { fileURLToPath } from "node:url";
 import withNextBundleAnalyzer from "@next/bundle-analyzer";
 import { createJiti } from "jiti";
+import { fileURLToPath } from "node:url";
 import { headers } from "./headers.config.mjs";
 
 const jiti = createJiti(fileURLToPath(import.meta.url));
@@ -11,10 +11,6 @@ jiti("./src/env");
 let nextConfig = {
 	// linting is done in CI
 	eslint: { ignoreDuringBuilds: true },
-	/** @param {import("webpack").Configuration} config */
-	// webpack(config) {
-	// 	return config;
-	// },
 	experimental: {
 		reactCompiler: true,
 	},
