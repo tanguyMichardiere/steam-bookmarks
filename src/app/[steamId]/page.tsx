@@ -17,5 +17,5 @@ export default async function PlayerPage(props: Props) {
 		redirect(`/${playerSummary.steamid}/${playerSummary.gameid}`);
 	}
 
-	return <div>Not in game</div>;
+	return <div>Try loading this page while you are in game!</div>;
 }
