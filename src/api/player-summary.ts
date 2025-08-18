@@ -11,9 +11,9 @@ export type PlayerSummary = {
 	avatarfull: string;
 } & ({ gameid: string; gameextrainfo: string } | { gameid?: never; gameextrainfo?: never });
 
-export class GetPlayerSummaryError extends Error {}
-export class GetPlayerSummaryResponseError extends GetPlayerSummaryError {}
-export class GetPlayerSummaryNotFoundError extends GetPlayerSummaryError {}
+class GetPlayerSummaryError extends Error {}
+class GetPlayerSummaryResponseError extends GetPlayerSummaryError {}
+class GetPlayerSummaryNotFoundError extends GetPlayerSummaryError {}
 
 export async function getPlayerSummary(steamId: string): Promise<PlayerSummary> {
 	logger.debug("fetching player summary", { steamId });

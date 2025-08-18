@@ -1,9 +1,24 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"vcs": {
-		"clientKind": "git",
 		"enabled": true,
+		"clientKind": "git",
 		"useIgnoreFile": true
+	},
+	"formatter": {
+		"enabled": true,
+		"lineWidth": 100
+	},
+	"linter": {
+		"enabled": true,
+		"domains": {
+			"next": "recommended",
+			"project": "recommended",
+			"react": "recommended"
+		},
+		"rules": {
+			"recommended": true
+		}
 	},
 	"assist": {
 		"actions": {
@@ -11,21 +26,6 @@
 				"organizeImports": "on",
 				"useSortedAttributes": "on"
 			}
-		}
-	},
-	"formatter": {
-		"enabled": true,
-		"lineWidth": 100
-	},
-	"linter": {
-		"domains": {
-			"next": "recommended",
-			"project": "recommended",
-			"react": "recommended"
-		},
-		"enabled": true,
-		"rules": {
-			"recommended": true
 		}
 	},
 	"overrides": [
@@ -62,10 +62,8 @@
 			}
 		},
 		{
-			"includes": [
-				// environment variable names are not in camelCase
-				"src/env.ts"
-			],
+			// environment variable names are not in camelCase
+			"includes": ["src/env.ts"],
 			"linter": {
 				"rules": {
 					"style": {
@@ -75,14 +73,15 @@
 			}
 		},
 		{
-			"includes": [
-				// styles.css is a TailwindCSS file
-				"src/app/styles.css"
-			],
+			// styles.css is a TailwindCSS file
+			"includes": ["src/app/styles.css"],
 			"linter": {
 				"rules": {
 					"correctness": {
 						"noUnknownProperty": "off"
+					},
+					"suspicious": {
+						"noUnknownAtRules": "off"
 					}
 				}
 			}

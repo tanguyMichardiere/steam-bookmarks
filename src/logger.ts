@@ -1,7 +1,6 @@
 import "server-only";
 import { env } from "./env";
 
-// biome-ignore assist/source/useSortedKeys: logical order
 const level = {
 	debug: 0,
 	info: 1,
@@ -10,7 +9,6 @@ const level = {
 	silent: 4,
 } satisfies Record<typeof env.LOG_LEVEL, number>;
 
-// biome-ignore assist/source/useSortedKeys: logical order
 export const logger = {
 	debug(this: void, message: unknown, ...optionalParams: unknown[]): void {
 		if (level[env.LOG_LEVEL] <= level.debug) {

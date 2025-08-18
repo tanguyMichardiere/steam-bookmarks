@@ -39,10 +39,10 @@ export function BookmarksGrid(props: Props) {
 	return (
 		<>
 			{defaultBookmarks.map((bookmark) => (
-				<BookmarkCard editing={false} key={bookmark.id} bookmark={bookmark} />
+				<BookmarkCard bookmark={bookmark} editing={false} key={bookmark.id} />
 			))}
 			{bookmarks.map((bookmark) => (
-				<BookmarkCard editing={editing} key={bookmark.id} bookmark={bookmark} />
+				<BookmarkCard bookmark={bookmark} editing={editing} key={bookmark.id} />
 			))}
 			{editing ? (
 				<button

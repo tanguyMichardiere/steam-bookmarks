@@ -1,6 +1,6 @@
+import { fileURLToPath } from "node:url";
 import withNextBundleAnalyzer from "@next/bundle-analyzer";
 import { createJiti } from "jiti";
-import { fileURLToPath } from "node:url";
 import { headers } from "./headers.config.mjs";
 
 const jiti = createJiti(fileURLToPath(import.meta.url));
