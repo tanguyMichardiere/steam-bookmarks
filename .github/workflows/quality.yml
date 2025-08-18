@@ -10,20 +10,16 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+        uses: actions/checkout@v5
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
+          cache: npm
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm clean-install
       - name: Lint
-        run: pnpm run lint --reporter=github
+        run: npm run lint -- --reporter=github
 
   check-types:
     name: Check types
@@ -31,20 +27,16 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+        uses: actions/checkout@v5
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
+          cache: npm
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm clean-install
       - name: Check types
-        run: pnpm run check-types
+        run: npm run check-types
 
   check-dead-code:
     name: Check dead code
@@ -52,17 +44,13 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+        uses: actions/checkout@v5
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
+          cache: npm
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm clean-install
       - name: Check dead code
-        run: pnpm run check-dead-code
+        run: npm run check-dead-code
