@@ -1,12 +1,29 @@
-import { persistentAtom } from "@nanostores/persistent";
-import { jsonEncode } from "../utils";
+import "client-only";
+import { persist } from "zustand/middleware";
+import { createStore } from "zustand/vanilla";
 
-export type Settings = {
-  searchUrl: string;
-};
+type SettingsStoreState = Readonly<{
+	searchUrl: string;
+}>;
 
-export const $settings = persistentAtom<Settings>(
-  "settings",
-  { searchUrl: "https://www.google.com/search?q=%s" },
-  jsonEncode,
-);
+type SettingsStoreActions = Readonly<{
+	setSearchUrl(searchUrl: string): void;
+}>;
+
+export type SettingsStore = SettingsStoreState & SettingsStoreActions;
+
+export function createSettingsStore() {
+	return createStore<SettingsStore>()(
+		persist(
+			(set) => ({
+				// state
+				searchUrl: "https://www.google.com/search?q=%s",
+				// actions
+				setSearchUrl(searchUrl: string) {
+					set({ searchUrl });
+				},
+			}),
+			{ name: "settings" },
+		),
+	);
+}

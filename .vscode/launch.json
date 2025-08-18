@@ -1,17 +1,30 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Debug",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "npm run dev",
-      "serverReadyAction": {
-        "pattern": "  ┃ Local\\s+(https?://\\S+)",
-        "uriFormat": "%s",
-        "action": "debugWithEdge",
-        "webRoot": "${workspaceFolder}"
-      }
-    }
-  ]
+	"configurations": [
+		{
+			"cascadeTerminateToConfigurations": ["Launch Debug Browser (port 3000)"],
+			"command": "pnpm run dev",
+			"name": "Debug",
+			"request": "launch",
+			"serverReadyAction": {
+				"action": "startDebugging",
+				"killOnServerStop": true,
+				"name": "Launch Debug Browser (port 3000)",
+				"pattern": "- Local:\\s+http://localhost:3000"
+			},
+			"type": "node-terminal"
+		},
+		// TODO: move to user settings
+		// https://github.com/microsoft/vscode/issues/109083
+		{
+			"name": "Launch Debug Browser (port 3000)",
+			"presentation": { "hidden": true },
+			"request": "launch",
+			"runtimeExecutable": "/opt/homebrew/bin/chromium",
+			"type": "chrome",
+			"url": "http://localhost:3000",
+			"userDataDir": false,
+			"webRoot": "${workspaceFolder}"
+		}
+	],
+	"version": "0.2.0"
 }
