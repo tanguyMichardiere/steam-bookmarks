@@ -17,7 +17,7 @@ export default async function PlayerLayout(props: Props) {
 	return (
 		<SettingsStoreProvider>
 			<Navbar playerSummary={playerSummary} />
-			<main className="mx-auto flex max-w-screen-lg flex-col items-center gap-4">
+			<main className="mx-auto flex max-w-screen-lg flex-col items-center gap-4 grow">
 				{props.children}
 			</main>
 		</SettingsStoreProvider>

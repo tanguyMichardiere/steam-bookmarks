@@ -1,7 +1,8 @@
-import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { ClientAnalytics } from "../components/client-analytics";
+import { Footer } from "../components/footer";
 import "./styles.css";
 
 export const metadata: Metadata = {
@@ -16,9 +17,12 @@ type Props = Readonly<{
 export default function RootLayout(props: Props) {
 	return (
 		<html className="h-full" lang="en">
-			<Analytics />
+			<ClientAnalytics />
 			<SpeedInsights />
-			<body className="font-sans antialiased h-full p-4">{props.children}</body>
+			<body className="font-sans antialiased h-full p-4 flex flex-col">
+				{props.children}
+				<Footer />
+			</body>
 		</html>
 	);
 }
