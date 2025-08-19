@@ -1,3 +1,3 @@
 export default function LandingPage() {
-	return <div className="text-center">Steam Bookmarks</div>;
+	return <main className="text-center grow">Steam Bookmarks</main>;
 }
