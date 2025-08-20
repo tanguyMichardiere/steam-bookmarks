@@ -14,7 +14,7 @@ export default function RootLayout(props: LayoutProps<"/">) {
 		<html className="h-full" lang="en">
 			<ClientAnalytics />
 			<SpeedInsights />
-			<body className="font-sans antialiased h-full p-4 flex flex-col">
+			<body className="font-sans antialiased h-full flex flex-col">
 				{props.children}
 				<Footer />
 			</body>
