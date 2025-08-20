@@ -26,7 +26,7 @@ export const getPlayerSummary = cache(async (playerId: string) => {
 		}
 
 		// cache miss: fetch the player summary, and also some others to cache them
-		const playerIdsToPrefetch = await getSteamIdsToPrefetch(redisClient, playerId);
+		const playerIdsToPrefetch = await getPlayerIdsToPrefetch(redisClient, playerId);
 		const playerSummaries = await getPlayerSummaries(playerIdsToPrefetch);
 		const foundPlayerIds = playerSummaries.map(({ id }) => id);
 
@@ -74,7 +74,7 @@ const NOT_TOO_RECENT_MS = 5_000; // only consider prefetching player summaries t
 const RECENT_WINDOW_MS = 600_000; // only consider prefetching player summaries that have been requested at most this time ago
 const REFRESH_EAGER_MS = 5_000; // only prefetch player summaries with a TTL below this duration
 
-async function getSteamIdsToPrefetch(
+async function getPlayerIdsToPrefetch(
 	redisClient: Awaited<ReturnType<typeof getRedisClient>>,
 	forcedPlayerId: string,
 ) {

@@ -5,8 +5,8 @@ import { Analytics } from "@vercel/analytics/next";
 
 function beforeSend(event: BeforeSendEvent) {
 	const url = new URL(event.url);
-	url.pathname = url.pathname.replace(/^\/\d+/, "/[steamId]");
-	url.pathname = url.pathname.replace(/^\/\[steamId\]\/\d+/, "/[steamId]/[gameId]");
+	url.pathname = url.pathname.replace(/^\/\d+/, "/[playerId]");
+	url.pathname = url.pathname.replace(/^\/\[playerId\]\/\d+/, "/[playerId]/[gameId]");
 	return { ...event, url: url.toString() };
 }
 
