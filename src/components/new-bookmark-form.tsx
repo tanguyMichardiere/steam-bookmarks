@@ -6,7 +6,7 @@ import { useRef } from "react";
 import { useGameSettingsStore } from "../stores/game-settings/context/hook";
 
 type Props = Readonly<{
-	steamId: string;
+	playerId: string;
 	gameId: string;
 }>;
 
@@ -25,7 +25,7 @@ export function NewBookmarkForm(props: Props) {
 			const href = hrefInput.current.value.trim();
 			if (name.length > 0 && href.length > 0) {
 				addBookmark({ href, name });
-				router.replace(`/${props.steamId}/${props.gameId}`);
+				router.replace(`/${props.playerId}/${props.gameId}`);
 			}
 		}
 	}
