@@ -1,11 +1,5 @@
-import { fileURLToPath } from "node:url";
 import withNextBundleAnalyzer from "@next/bundle-analyzer";
-import { createJiti } from "jiti";
 import { headers } from "./headers.config.mjs";
-
-const jiti = createJiti(fileURLToPath(import.meta.url));
-// ensure all environment variables are defined at build time
-jiti("./src/env");
 
 /** @type {import("next").NextConfig} */
 let nextConfig = {
