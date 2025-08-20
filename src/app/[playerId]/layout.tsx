@@ -2,10 +2,10 @@ import { getPlayerSummary } from "../../api/player-summary";
 import { Navbar } from "../../components/navbar";
 import { SettingsStoreProvider } from "../../stores/settings/context/provider";
 
-export default async function PlayerLayout(props: LayoutProps<"/[steamId]">) {
+export default async function PlayerLayout(props: LayoutProps<"/[playerId]">) {
 	const params = await props.params;
 
-	const playerSummary = await getPlayerSummary(params.steamId);
+	const playerSummary = await getPlayerSummary(params.playerId);
 
 	return (
 		<SettingsStoreProvider>

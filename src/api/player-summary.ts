@@ -6,17 +6,17 @@ import z from "zod";
 import { env } from "../env";
 import { logger } from "../logger";
 
-export const getPlayerSummary = cache(async (steamId: string) => {
+export const getPlayerSummary = cache(async (playerId: string) => {
 	const redisClient = await getRedisClient();
 	try {
-		// register this steamId as having been requested now
+		// register this player ID as having been requested now
 		await redisClient.zAdd(
 			"player-summary:recent-requests",
-			{ value: steamId, score: Date.now() },
+			{ value: playerId, score: Date.now() },
 			{ comparison: "GT" },
 		);
 
-		const cachedPlayerSummary = await redisClient.get(`player-summary:cache:${steamId}`);
+		const cachedPlayerSummary = await redisClient.get(`player-summary:cache:${playerId}`);
 		if (cachedPlayerSummary !== null) {
 			// cache hit
 			if (cachedPlayerSummary === "not-found") {
@@ -26,22 +26,21 @@ export const getPlayerSummary = cache(async (steamId: string) => {
 		}
 
 		// cache miss: fetch the player summary, and also some others to cache them
-		const steamIds = await getSteamIdsToPrefetch(redisClient, steamId);
-		const playerSummaries = await getPlayerSummaries(steamIds);
-		logger.debug("playerSummaries", { playerSummaries });
-		const foundSteamIds = playerSummaries.map(({ steamId }) => steamId);
+		const playerIdsToPrefetch = await getSteamIdsToPrefetch(redisClient, playerId);
+		const playerSummaries = await getPlayerSummaries(playerIdsToPrefetch);
+		const foundPlayerIds = playerSummaries.map(({ id }) => id);
 
 		const redisClientMultiCommand = redisClient.multi();
 		for (const playerSummary of playerSummaries) {
 			redisClientMultiCommand.set(
-				`player-summary:cache:${playerSummary.steamId}`,
+				`player-summary:cache:${playerSummary.id}`,
 				JSON.stringify(playerSummary),
 				{ expiration: { type: "PX", value: jitter(CACHE_TTL_MS) } },
 			);
 		}
-		for (const steamId of steamIds) {
-			if (!foundSteamIds.includes(steamId)) {
-				redisClientMultiCommand.set(`player-summary:cache:${steamId}`, "not-found", {
+		for (const playerId of playerIdsToPrefetch) {
+			if (!foundPlayerIds.includes(playerId)) {
+				redisClientMultiCommand.set(`player-summary:cache:${playerId}`, "not-found", {
 					expiration: { type: "PX", value: jitter(CACHE_TTL_MS) },
 				});
 			}
@@ -50,7 +49,7 @@ export const getPlayerSummary = cache(async (steamId: string) => {
 
 		// return only the requested player summary
 		for (const playerSummary of playerSummaries) {
-			if (playerSummary.steamId === steamId) {
+			if (playerSummary.id === playerId) {
 				return playerSummary;
 			}
 		}
@@ -77,10 +76,10 @@ const REFRESH_EAGER_MS = 5_000; // only prefetch player summaries with a TTL bel
 
 async function getSteamIdsToPrefetch(
 	redisClient: Awaited<ReturnType<typeof getRedisClient>>,
-	forcedSteamId: string,
+	forcedPlayerId: string,
 ) {
 	const now = Date.now();
-	const candidates = (
+	const candidatePlayerIds = (
 		await redisClient.zRange(
 			"player-summary:recent-requests",
 			now - NOT_TOO_RECENT_MS,
@@ -92,18 +91,18 @@ async function getSteamIdsToPrefetch(
 				LIMIT: { offset: 0, count: 500 },
 			},
 		)
-	).filter((steamId) => steamId !== forcedSteamId);
-	if (candidates.length === 0) return [forcedSteamId];
+	).filter((playerId) => playerId !== forcedPlayerId);
+	if (candidatePlayerIds.length === 0) return [forcedPlayerId];
 
 	// get the remaining TTL of each player summary
 	const redisClientMultiCommand = redisClient.multi();
-	for (const steamId of candidates) {
-		redisClientMultiCommand.pTTL(`player-summary:cache:${steamId}`);
+	for (const playerId of candidatePlayerIds) {
+		redisClientMultiCommand.pTTL(`player-summary:cache:${playerId}`);
 	}
 	const ttls = (await redisClientMultiCommand.exec()) as unknown as number[];
 
-	const steamIds = [forcedSteamId];
-	for (let i = 0; i < candidates.length; i++) {
+	const playerIds = [forcedPlayerId];
+	for (let i = 0; i < candidatePlayerIds.length; i++) {
 		// biome-ignore lint/style/noNonNullAssertion: redisClientMultiCommand.exec() should return the right number of results
 		const ttl = ttls[i]!;
 		if (
@@ -111,11 +110,11 @@ async function getSteamIdsToPrefetch(
 			(ttl >= 0 && ttl < REFRESH_EAGER_MS) // near expiry
 		) {
 			// biome-ignore lint/style/noNonNullAssertion: definition of i
-			steamIds.push(candidates[i]!);
+			playerIds.push(candidatePlayerIds[i]!);
 		}
-		if (steamIds.length >= BATCH_SIZE) break;
+		if (playerIds.length >= BATCH_SIZE) break;
 	}
-	return steamIds;
+	return playerIds;
 }
 
 const jitter = (ms: number) => ms + Math.floor((Math.random() * 2 - 1) * Math.floor(ms * 0.1));
@@ -130,23 +129,23 @@ const PlayerSummary = z.preprocess(
 		gameid?: string;
 		gameextrainfo?: string;
 	}) => ({
-		steamId: val.steamid,
+		id: val.steamid,
 		name: val.personaname,
 		avatarSrc: val.avatarfull,
 		blurAvatarSrc: val.avatar,
 		public: val.communityvisibilitystate === 3,
 		currentGame:
 			val.gameid !== undefined && val.gameextrainfo !== undefined
-				? { gameId: val.gameid, name: val.gameextrainfo }
+				? { id: val.gameid, name: val.gameextrainfo }
 				: null,
 	}),
 	z.object({
-		steamId: z.string(),
+		id: z.string(),
 		name: z.string(),
 		avatarSrc: z.string(),
 		blurAvatarSrc: z.string(),
 		public: z.boolean(),
-		currentGame: z.nullable(z.object({ gameId: z.string(), name: z.string() })),
+		currentGame: z.nullable(z.object({ id: z.string(), name: z.string() })),
 	}),
 );
 export type PlayerSummary = z.infer<typeof PlayerSummary>;
@@ -157,15 +156,15 @@ const GetPlayerSummariesResponse = z.object({
 	}),
 });
 
-async function getPlayerSummaries(steamIds: string[]): Promise<PlayerSummary[]> {
-	logger.debug("fetching player summaries", { steamIds });
+async function getPlayerSummaries(playerIds: string[]): Promise<PlayerSummary[]> {
+	logger.debug("fetching player summaries", { playerIds });
 	const url = new URL("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002");
 	url.searchParams.set("key", env.API_KEY);
-	url.searchParams.set("steamids", steamIds.join(","));
+	url.searchParams.set("steamids", playerIds.join(","));
 	const response = await fetch(url);
 	if (!response.ok) {
 		const errorText = await response.text();
-		logger.warning("error fetching player summaries", { steamIds, errorText });
+		logger.warning("error fetching player summaries", { playerIds, errorText });
 		throw new Error(errorText);
 	}
 	return GetPlayerSummariesResponse.parse(await response.json()).response.players;

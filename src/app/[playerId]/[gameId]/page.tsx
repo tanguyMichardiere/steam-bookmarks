@@ -1,14 +1,14 @@
 import { BookmarksGrid } from "../../../components/bookmarks-grid";
 import { Searchbar } from "../../../components/searchbar";
 
-export default async function GamePage(props: PageProps<"/[steamId]/[gameId]">) {
+export default async function GamePage(props: PageProps<"/[playerId]/[gameId]">) {
 	const params = await props.params;
 
 	return (
 		<>
 			<Searchbar />
 			<div className="grid w-full grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
-				<BookmarksGrid gameId={params.gameId} steamId={params.steamId} />
+				<BookmarksGrid gameId={params.gameId} playerId={params.playerId} />
 			</div>
 		</>
 	);

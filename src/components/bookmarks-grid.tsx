@@ -8,7 +8,7 @@ import { PencilSquare } from "./icons/PencilSquare";
 import { Plus } from "./icons/Plus";
 
 type Props = Readonly<{
-	steamId: string;
+	playerId: string;
 	gameId: string;
 }>;
 
@@ -43,7 +43,7 @@ export function BookmarksGrid(props: Props) {
 				<div className="join">
 					<a
 						className="btn btn-ghost join-item h-24 grow"
-						href={`/${props.steamId}/${props.gameId}/new-bookmark`}
+						href={`/${props.playerId}/${props.gameId}/new-bookmark`}
 						title="add bookmark"
 					>
 						<Plus className="w=6 h-6" />
