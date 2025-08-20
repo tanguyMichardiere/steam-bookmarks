@@ -5,9 +5,7 @@ export default function GettingStartedPage() {
 				<div className="max-w-md flex flex-col gap-6">
 					<p>
 						To get started, set your Steam overlay browser's home page to{" "}
-						<span className="text-secondary">
-							https://steambookmarks.com/{"<"}your_steam_id{">"}
-						</span>
+						<span className="text-secondary">https://steambookmarks.com/&lt;your_steam_id&gt;</span>
 					</p>
 					<p>
 						To find your Steam ID, log into Steam via your web browser or the Steam application.
