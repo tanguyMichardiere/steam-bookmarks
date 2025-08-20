@@ -17,7 +17,7 @@ export function createSettingsStore() {
 		persist(
 			(set) => ({
 				// state
-				searchUrl: "https://www.google.com/search?q=%s",
+				searchUrl: "https://www.google.com/search?q=%s&udm=14",
 				// actions
 				setSearchUrl(searchUrl: string) {
 					set({ searchUrl });

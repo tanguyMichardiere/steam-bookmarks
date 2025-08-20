@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useRef } from "react";
 import { useGameSettingsStore } from "../stores/game-settings/context/hook";
@@ -8,8 +7,6 @@ import { useSettingsStore } from "../stores/settings/context/hook";
 import { MagnifyingGlass } from "./icons/MagnifyingGlass";
 
 export function Searchbar() {
-	const router = useRouter();
-
 	const searchUrl = useSettingsStore((state) => state.searchUrl);
 	const searchPrefix = useGameSettingsStore((state) => state.searchPrefix);
 
@@ -20,7 +17,7 @@ export function Searchbar() {
 		if (searchInput.current !== null) {
 			const search = searchInput.current.value.trim();
 			if (search.length > 0) {
-				router.replace(searchUrl.replace("%s", search));
+				window.location.replace(searchUrl.replace("%s", search));
 			}
 		}
 	}

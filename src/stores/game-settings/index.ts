@@ -8,6 +8,19 @@ export type GameSettingsBookmark = Readonly<{
 	href: string;
 }>;
 
+function getDefaultBookmarks(gameId: string) {
+	return [
+		{ id: 0, name: "Steam Community", href: `https://steamcommunity.com/app/${gameId}` },
+		{ id: 1, name: "SteamDB", href: `https://steamdb.info/app/${gameId}/charts/` },
+		{ id: 2, name: "Steambase", href: `https://steambase.io/games/${gameId}` },
+		{
+			id: 3,
+			name: "PCGamingWiki",
+			href: `https://www.pcgamingwiki.com/api/appid.php?appid=${gameId}`,
+		},
+	];
+}
+
 type GameSettingsStoreState = Readonly<{
 	searchPrefix: string;
 	bookmarks: Array<GameSettingsBookmark>;
@@ -15,6 +28,7 @@ type GameSettingsStoreState = Readonly<{
 
 type GameSettingsStoreActions = Readonly<{
 	setSearchPrefix(searchPrefix: string): void;
+	resetBookmarks(): void;
 	addBookmark(bookmark: Omit<GameSettingsStoreState["bookmarks"][number], "id">): void;
 	moveBookmark(bookmarkId: number, direction: "left" | "right"): void;
 	removeBookmark(bookmarkId: number): void;
@@ -28,10 +42,13 @@ export function createGameSettingsStore(gameId: string) {
 			(set) => ({
 				// state
 				searchPrefix: "",
-				bookmarks: [],
+				bookmarks: getDefaultBookmarks(gameId),
 				// actions
 				setSearchPrefix(searchPrefix: string) {
 					set({ searchPrefix });
+				},
+				resetBookmarks() {
+					set(() => ({ bookmarks: getDefaultBookmarks(gameId) }));
 				},
 				addBookmark(bookmark) {
 					set(({ bookmarks }) => ({ bookmarks: [...bookmarks, { id: Date.now(), ...bookmark }] }));
