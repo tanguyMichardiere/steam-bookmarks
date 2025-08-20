@@ -1,13 +1,8 @@
 import { redirect } from "next/navigation";
 import { getPlayerSummary } from "../../api/player-summary";
 import { logger } from "../../logger";
-import type { SteamIdParams } from "./params";
 
-type Props = Readonly<{
-	params: Promise<SteamIdParams>;
-}>;
-
-export default async function PlayerPage(props: Props) {
+export default async function PlayerPage(props: PageProps<"/[steamId]">) {
 	const params = await props.params;
 
 	const playerSummary = await getPlayerSummary(params.steamId);

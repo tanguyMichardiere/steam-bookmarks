@@ -1,13 +1,7 @@
 import { BookmarksGrid } from "../../../components/bookmarks-grid";
 import { Searchbar } from "../../../components/searchbar";
-import type { SteamIdParams } from "../params";
-import type { GameIdParams } from "./params";
 
-type Props = Readonly<{
-	params: Promise<SteamIdParams & GameIdParams>;
-}>;
-
-export default async function GamePage(props: Props) {
+export default async function GamePage(props: PageProps<"/[steamId]/[gameId]">) {
 	const params = await props.params;
 
 	return (

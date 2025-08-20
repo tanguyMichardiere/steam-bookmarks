@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import type { GameSettingsBookmark } from "../stores/game-settings";
 import { useGameSettingsStore } from "../stores/game-settings/context/hook";
 import { ArrowLeft } from "./icons/ArrowLeft";
@@ -66,9 +65,9 @@ export function BookmarkCard(props: Props) {
 	}
 
 	return (
-		<Link className="btn h-24 flex-col gap-4" href={props.bookmark.href}>
+		<a className="btn h-24 flex-col gap-4" href={props.bookmark.href}>
 			<Image alt={props.bookmark.name} height={24} src={faviconSrc} width={24} />
 			{props.bookmark.name}
-		</Link>
+		</a>
 	);
 }

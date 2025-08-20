@@ -1,6 +1,5 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
 import { ClientAnalytics } from "../components/client-analytics";
 import { Footer } from "../components/footer";
 import "./styles.css";
@@ -10,11 +9,7 @@ export const metadata: Metadata = {
 	description: "Home page for the Steam overlay browser",
 };
 
-type Props = Readonly<{
-	children: ReactNode;
-}>;
-
-export default function RootLayout(props: Props) {
+export default function RootLayout(props: LayoutProps<"/">) {
 	return (
 		<html className="h-full" lang="en">
 			<ClientAnalytics />

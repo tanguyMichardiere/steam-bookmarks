@@ -1,15 +1,8 @@
-import type { ReactNode } from "react";
 import { getPlayerSummary } from "../../api/player-summary";
 import { Navbar } from "../../components/navbar";
 import { SettingsStoreProvider } from "../../stores/settings/context/provider";
-import type { SteamIdParams } from "./params";
 
-type Props = Readonly<{
-	params: Promise<SteamIdParams>;
-	children: ReactNode;
-}>;
-
-export default async function PlayerLayout(props: Props) {
+export default async function PlayerLayout(props: LayoutProps<"/[steamId]">) {
 	const params = await props.params;
 
 	const playerSummary = await getPlayerSummary(params.steamId);
