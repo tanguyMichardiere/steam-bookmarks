@@ -13,17 +13,6 @@ type Props = Readonly<{
 }>;
 
 export function BookmarksGrid(props: Props) {
-	const defaultBookmarks = [
-		{ href: `https://steamcommunity.com/app/${props.gameId}`, id: 0, name: "Steam Community" },
-		{ href: `https://steamdb.info/app/${props.gameId}/charts/`, id: 1, name: "SteamDB" },
-		{ href: `https://steambase.io/games/${props.gameId}`, id: 2, name: "Steambase" },
-		{
-			href: `https://www.pcgamingwiki.com/api/appid.php?appid=${props.gameId}`,
-			id: 3,
-			name: "PCGamingWiki",
-		},
-	];
-
 	const bookmarks = useGameSettingsStore((state) => state.bookmarks);
 
 	const [editing, setEditing] = useState(false);
@@ -38,9 +27,6 @@ export function BookmarksGrid(props: Props) {
 
 	return (
 		<>
-			{defaultBookmarks.map((bookmark) => (
-				<BookmarkCard bookmark={bookmark} editing={false} key={bookmark.id} />
-			))}
 			{bookmarks.map((bookmark) => (
 				<BookmarkCard bookmark={bookmark} editing={editing} key={bookmark.id} />
 			))}
