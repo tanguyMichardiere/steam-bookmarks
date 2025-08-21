@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function GettingStartedPage() {
 	return (
 		<main className="hero h-full">
@@ -17,6 +19,16 @@ export default function GettingStartedPage() {
 						For example, Robin Walker's Steam Bookmarks URL is{" "}
 						<span className="text-secondary">https://steambookmarks.com/76561197960435530</span>
 					</p>
+					<div>
+						<Link className="link" href="/">
+							Home Page
+						</Link>
+					</div>
+					<div>
+						<Link className="link" href="/faq">
+							FAQ
+						</Link>
+					</div>
 				</div>
 			</div>
 		</main>

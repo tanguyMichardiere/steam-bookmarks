@@ -6,10 +6,15 @@ export default function LandingPage() {
 			<div className="hero-content text-center">
 				<div className="max-w-md flex flex-col gap-6">
 					<h1 className="text-5xl font-bold">Steam Bookmarks</h1>
-					<p>Home page for the Steam overlay browser</p>
+					<h2 className="text-xl">Home page for the Steam overlay browser</h2>
 					<div>
 						<Link className="link" href="/getting-started">
 							Getting Started
+						</Link>
+					</div>
+					<div>
+						<Link className="link" href="/faq">
+							FAQ
 						</Link>
 					</div>
 				</div>
