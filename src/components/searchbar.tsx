@@ -1,10 +1,10 @@
 "use client";
 
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import type { FormEvent } from "react";
 import { useRef } from "react";
 import { useGameSettingsStore } from "../stores/game-settings/context/hook";
 import { useSettingsStore } from "../stores/settings/context/hook";
-import { MagnifyingGlass } from "./icons/MagnifyingGlass";
 
 export function Searchbar() {
 	const searchUrl = useSettingsStore((state) => state.searchUrl);
@@ -34,7 +34,7 @@ export function Searchbar() {
 				type="text"
 			/>
 			<button className="btn join-item" title="search" type="submit">
-				<MagnifyingGlass className="h-6 w-6" />
+				<MagnifyingGlassIcon className="h-6 w-6" />
 			</button>
 		</form>
 	);

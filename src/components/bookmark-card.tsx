@@ -1,11 +1,9 @@
 "use client";
 
+import { ArrowLeftIcon, ArrowRightIcon, TrashIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import type { GameSettingsBookmark } from "../stores/game-settings";
 import { useGameSettingsStore } from "../stores/game-settings/context/hook";
-import { ArrowLeft } from "./icons/ArrowLeft";
-import { ArrowRight } from "./icons/ArrowRight";
-import { Trash } from "./icons/Trash";
 
 type Props = Readonly<{
 	bookmark: GameSettingsBookmark;
@@ -39,7 +37,7 @@ export function BookmarkCard(props: Props) {
 					title="move left"
 					type="button"
 				>
-					<ArrowLeft className="h-6 w-6" />
+					<ArrowLeftIcon className="h-6 w-6" />
 				</button>
 				<div className="btn join-item pointer-events-none h-32 grow flex-col gap-4">
 					<Image alt={props.bookmark.name} height={24} src={faviconSrc} width={24} />
@@ -49,7 +47,7 @@ export function BookmarkCard(props: Props) {
 						title="remove"
 						type="button"
 					>
-						<Trash className="h-6 w-6" />
+						<TrashIcon className="h-6 w-6" />
 					</button>
 				</div>
 				<button
@@ -58,7 +56,7 @@ export function BookmarkCard(props: Props) {
 					title="move right"
 					type="button"
 				>
-					<ArrowRight className="h-6 w-6" />
+					<ArrowRightIcon className="h-6 w-6" />
 				</button>
 			</div>
 		);
