@@ -23,7 +23,7 @@ export function Navbar(props: Props) {
 				<div className="breadcrumbs gap-4">
 					<ul>
 						<li>
-							<p>{props.playerSummary.name}</p>
+							<Link href={`/${props.playerSummary.id}`}>{props.playerSummary.name}</Link>
 						</li>
 						{props.playerSummary.currentGame !== null && (
 							<li>{props.playerSummary.currentGame.name}</li>
