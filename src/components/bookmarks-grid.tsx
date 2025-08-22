@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowPathIcon, CheckIcon, PencilSquareIcon, PlusIcon } from "@heroicons/react/24/solid";
-import { useBooleanState } from "../app/hooks/use-boolean-state";
+import { useBooleanState } from "../hooks/use-boolean-state";
 import { useGameSettingsStore } from "../stores/game-settings/context/hook";
 import { BookmarkCard } from "./bookmark-card";
 

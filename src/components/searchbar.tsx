@@ -3,7 +3,7 @@
 import { CheckIcon, MagnifyingGlassIcon, PencilSquareIcon } from "@heroicons/react/24/solid";
 import type { FormEvent } from "react";
 import { useEffect, useRef } from "react";
-import { useBooleanState } from "../app/hooks/use-boolean-state";
+import { useBooleanState } from "../hooks/use-boolean-state";
 import { useGameSettingsStore } from "../stores/game-settings/context/hook";
 import { useSettingsStore } from "../stores/settings/context/hook";
 
