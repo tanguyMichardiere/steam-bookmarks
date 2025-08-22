@@ -6,6 +6,8 @@ import z from "zod";
 import { env } from "../env";
 import { logger } from "../logger";
 
+// TODO: make env.REDIS_URL optional
+
 export const getPlayerSummary = cache(async (playerId: string) => {
 	const redisClient = await getRedisClient();
 	try {
