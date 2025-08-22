@@ -134,11 +134,10 @@ const PlayerSummary = z.preprocess(
 		avatarSrc: val.avatarfull,
 		blurAvatarSrc: val.avatar,
 		public: val.communityvisibilitystate === 3,
-		// currentGame:
-		// 	val.gameid !== undefined && val.gameextrainfo !== undefined
-		// 		? { id: val.gameid, name: val.gameextrainfo }
-		// 		: null,
-		currentGame: { id: "730", name: "CS2" },
+		currentGame:
+			val.gameid !== undefined && val.gameextrainfo !== undefined
+				? { id: val.gameid, name: val.gameextrainfo }
+				: null,
 	}),
 	z.object({
 		id: z.string(),
