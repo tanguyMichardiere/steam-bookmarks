@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowPathIcon, CheckIcon, PencilSquareIcon, PlusIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
+import { useBooleanState } from "../app/hooks/use-boolean-state";
 import { useGameSettingsStore } from "../stores/game-settings/context/hook";
 import { BookmarkCard } from "./bookmark-card";
 
@@ -14,15 +14,7 @@ export function BookmarksGrid(props: Props) {
 	const bookmarks = useGameSettingsStore((state) => state.bookmarks);
 	const resetBookmarks = useGameSettingsStore((state) => state.resetBookmarks);
 
-	const [editing, setEditing] = useState(false);
-
-	function startEditing() {
-		setEditing(true);
-	}
-
-	function stopEditing() {
-		setEditing(false);
-	}
+	const [editing, stopEditing, startEditing] = useBooleanState();
 
 	function reset() {
 		resetBookmarks();
