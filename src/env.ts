@@ -8,6 +8,7 @@ export const env = createEnv({
 		API_KEY: z.string(),
 		REDIS_URL: z.optional(z.string()),
 		LOG_LEVEL: z.enum(["debug", "info", "warning", "error", "silent"]).default("warning"),
+		ANALYTICS: z.boolean().default(true),
 		NODE_ENV: z.enum(["development", "production", "test"]),
 	},
 });

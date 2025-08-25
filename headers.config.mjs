@@ -16,8 +16,11 @@ const contentSecurityPolicy = {
 	"object-src": [none],
 	"script-src": [self, unsafeEval, unsafeInline],
 	"style-src": [self, unsafeInline],
-	"upgrade-insecure-requests": [],
 };
+
+if (process.env.ALLOW_HTTP !== "true") {
+	contentSecurityPolicy["upgrade-insecure-requests"] = [];
+}
 
 /**
  * @param {string} key

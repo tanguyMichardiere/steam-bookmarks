@@ -25,7 +25,7 @@ jobs:
       - name: Log in to registry
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/production' }}
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-      - name: Push image
+      - name: Publish image
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/production' }}
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME

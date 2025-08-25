@@ -1,7 +1,7 @@
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { ClientAnalytics } from "../components/client-analytics";
 import { Footer } from "../components/footer";
+import { env } from "../env";
 import "./styles.css";
 
 export const metadata: Metadata = {
@@ -12,8 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout(props: LayoutProps<"/">) {
 	return (
 		<html className="h-full" lang="en">
-			<ClientAnalytics />
-			<SpeedInsights />
+			{env.ANALYTICS && <ClientAnalytics />}
 			<body className="font-sans antialiased h-full flex flex-col">
 				{props.children}
 				<Footer />
