@@ -6,63 +6,70 @@ import z from "zod";
 import { env } from "../env";
 import { logger } from "../logger";
 
-// TODO: make env.REDIS_URL optional
-
 export const getPlayerSummary = cache(async (playerId: string) => {
-	const redisClient = await getRedisClient();
-	try {
-		// register this player ID as having been requested now
-		await redisClient.zAdd(
-			"player-summary:recent-requests",
-			{ value: playerId, score: Date.now() },
-			{ comparison: "GT" },
-		);
-
-		const cachedPlayerSummary = await redisClient.get(`player-summary:cache:${playerId}`);
-		if (cachedPlayerSummary !== null) {
-			// cache hit
-			if (cachedPlayerSummary === "not-found") {
-				notFound();
-			}
-			return JSON.parse(cachedPlayerSummary) as PlayerSummary;
-		}
-
-		// cache miss: fetch the player summary, and also some others to cache them
-		const playerIdsToPrefetch = await getPlayerIdsToPrefetch(redisClient, playerId);
-		const playerSummaries = await getPlayerSummaries(playerIdsToPrefetch);
-		const foundPlayerIds = playerSummaries.map(({ id }) => id);
-
-		const redisClientMultiCommand = redisClient.multi();
-		for (const playerSummary of playerSummaries) {
-			redisClientMultiCommand.set(
-				`player-summary:cache:${playerSummary.id}`,
-				JSON.stringify(playerSummary),
-				{ expiration: { type: "PX", value: jitter(CACHE_TTL_MS) } },
+	if (env.REDIS_URL !== undefined) {
+		const redisClient = await getRedisClient(env.REDIS_URL);
+		try {
+			// register this player ID as having been requested now
+			await redisClient.zAdd(
+				"player-summary:recent-requests",
+				{ value: playerId, score: Date.now() },
+				{ comparison: "GT" },
 			);
-		}
-		for (const playerId of playerIdsToPrefetch) {
-			if (!foundPlayerIds.includes(playerId)) {
-				redisClientMultiCommand.set(`player-summary:cache:${playerId}`, "not-found", {
-					expiration: { type: "PX", value: jitter(CACHE_TTL_MS) },
-				});
-			}
-		}
-		await redisClientMultiCommand.exec();
 
-		// return only the requested player summary
-		for (const playerSummary of playerSummaries) {
-			if (playerSummary.id === playerId) {
-				return playerSummary;
+			const cachedPlayerSummary = await redisClient.get(`player-summary:cache:${playerId}`);
+			if (cachedPlayerSummary !== null) {
+				// cache hit
+				if (cachedPlayerSummary === "not-found") {
+					notFound();
+				}
+				return JSON.parse(cachedPlayerSummary) as PlayerSummary;
 			}
+
+			// cache miss: fetch the player summary, and also some others to cache them
+			const playerIdsToPrefetch = await getPlayerIdsToPrefetch(redisClient, playerId);
+			const playerSummaries = await getPlayerSummaries(playerIdsToPrefetch);
+			const foundPlayerIds = playerSummaries.map(({ id }) => id);
+
+			const redisClientMultiCommand = redisClient.multi();
+			for (const playerSummary of playerSummaries) {
+				redisClientMultiCommand.set(
+					`player-summary:cache:${playerSummary.id}`,
+					JSON.stringify(playerSummary),
+					{ expiration: { type: "PX", value: jitter(CACHE_TTL_MS) } },
+				);
+			}
+			for (const playerId of playerIdsToPrefetch) {
+				if (!foundPlayerIds.includes(playerId)) {
+					redisClientMultiCommand.set(`player-summary:cache:${playerId}`, "not-found", {
+						expiration: { type: "PX", value: jitter(CACHE_TTL_MS) },
+					});
+				}
+			}
+			await redisClientMultiCommand.exec();
+
+			// return only the requested player summary
+			for (const playerSummary of playerSummaries) {
+				if (playerSummary.id === playerId) {
+					return playerSummary;
+				}
+			}
+			notFound();
+		} finally {
+			redisClient.destroy();
 		}
-		notFound();
-	} finally {
-		redisClient.destroy();
+	} else {
+		// no Redis cache: just fetch the player summary every time
+		const [playerSummary] = await getPlayerSummaries([playerId]);
+		if (playerSummary === undefined) {
+			notFound();
+		}
+		return playerSummary;
 	}
 });
 
-function getRedisClient() {
-	return createClient({ url: env.REDIS_URL, RESP: 3 })
+function getRedisClient(url: string) {
+	return createClient({ url, RESP: 3 })
 		.on("error", (error) => {
 			logger.error("redis client error", error);
 		})

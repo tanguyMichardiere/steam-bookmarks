@@ -16,7 +16,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
 COPY package.json package-lock.json next.config.mjs headers.config.mjs postcss.config.mjs tsconfig.json src ./
 
-RUN API_KEY="API_KEY" REDIS_URL="REDIS_URL" npm run build:standalone
+RUN API_KEY="API_KEY" npm run build:standalone
 
 
 
