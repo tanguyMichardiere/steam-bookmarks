@@ -4,6 +4,7 @@
 	"scripts": {
 		"analyze-bundle": "ANALYZE=true next build",
 		"build": "next build --turbopack",
+		"build:standalone": "STANDALONE_OUTPUT=true npm run build",
 		"check-dead-code": "knip",
 		"precheck-types": "next typegen",
 		"check-types": "tsc",

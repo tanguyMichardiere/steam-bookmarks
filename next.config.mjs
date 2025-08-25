@@ -27,6 +27,7 @@ let nextConfig = {
 			},
 		],
 	},
+	output: process.env.STANDALONE_OUTPUT === "true" ? "standalone" : undefined,
 };
 
 nextConfig = withNextBundleAnalyzer({
