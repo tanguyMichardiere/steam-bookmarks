@@ -8,7 +8,6 @@ let nextConfig = {
 	typedRoutes: true,
 	reactStrictMode: true,
 	reactCompiler: true,
-	cacheComponents: true,
 	experimental: {
 		turbopackFileSystemCacheForDev: true,
 	},
