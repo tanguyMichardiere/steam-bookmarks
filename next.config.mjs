@@ -3,14 +3,14 @@ import { headers } from "./headers.config.mjs";
 
 /** @type {import("next").NextConfig} */
 let nextConfig = {
-	// linting is done in CI
-	eslint: { ignoreDuringBuilds: true },
 	// type checking is done in CI
 	typescript: { ignoreBuildErrors: true },
 	typedRoutes: true,
 	reactStrictMode: true,
+	reactCompiler: true,
+	cacheComponents: true,
 	experimental: {
-		reactCompiler: true,
+		turbopackFileSystemCacheForDev: true,
 	},
 	headers() {
 		return Promise.resolve([{ headers, source: "/:path*" }]);
