@@ -12,7 +12,7 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY --from=dependencies /app/node_modules ./node_modules
-COPY package.json package-lock.json next.config.ts headers.config.mjs postcss.config.mjs tsconfig.json src ./
+COPY package.json package-lock.json next.config.ts headers.config.ts postcss.config.mjs tsconfig.json src ./
 
 RUN API_KEY="API_KEY" ALLOW_HTTP="true" npm run build:standalone
 
