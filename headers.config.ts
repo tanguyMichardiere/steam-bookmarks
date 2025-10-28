@@ -1,3 +1,5 @@
+import type { Header } from "next/dist/lib/load-custom-routes";
+
 const self = "'self'";
 const data = "data:";
 const blob = "blob:";
@@ -5,8 +7,7 @@ const none = "'none'";
 const unsafeEval = "'unsafe-eval'";
 const unsafeInline = "'unsafe-inline'";
 
-/** @type {Record<string, string[]>} */
-const contentSecurityPolicy = {
+const contentSecurityPolicy: Record<string, string[]> = {
 	"base-uri": [self],
 	"default-src": [self],
 	"font-src": [self],
@@ -22,11 +23,7 @@ if (process.env.ALLOW_HTTP !== "true") {
 	contentSecurityPolicy["upgrade-insecure-requests"] = [];
 }
 
-/**
- * @param {string} key
- * @param {string} value
- */
-function addSrc(key, value) {
+function addSrc(key: string, value: string) {
 	if (key in contentSecurityPolicy) {
 		// @ts-expect-error checked by the line above
 		contentSecurityPolicy[key].push(value);
@@ -40,7 +37,6 @@ if (process.env.NODE_ENV === "development") {
 	addSrc("script-src", "va.vercel-scripts.com");
 }
 
-/** @type {import("next/dist/lib/load-custom-routes").Header["headers"]} */
 export const headers = [
 	{ key: "X-DNS-Prefetch-Control", value: "on" },
 	{ key: "X-XSS-Protection", value: "1; mode=block" },
@@ -58,4 +54,4 @@ export const headers = [
 			.map(([key, value]) => `${key} ${value.join(" ")}`)
 			.join("; "),
 	},
-];
+] satisfies Header["headers"];

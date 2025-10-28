@@ -1,4 +1,4 @@
-FROM node:22-alpine AS deps
+FROM node:22-alpine AS dependencies
 
 WORKDIR /app
 RUN apk add --no-cache libc6-compat
@@ -6,19 +6,15 @@ RUN apk add --no-cache libc6-compat
 COPY package.json package-lock.json ./
 RUN npm clean-install
 
-
-
 FROM node:22-alpine AS builder
 
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 
-COPY --from=deps /app/node_modules ./node_modules
-COPY package.json package-lock.json next.config.mjs headers.config.mjs postcss.config.mjs tsconfig.json src ./
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY package.json package-lock.json next.config.ts headers.config.mjs postcss.config.mjs tsconfig.json src ./
 
 RUN API_KEY="API_KEY" ALLOW_HTTP="true" npm run build:standalone
-
-
 
 FROM node:22-alpine AS runner
 

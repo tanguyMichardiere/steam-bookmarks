@@ -1,6 +1,6 @@
 import withNextBundleAnalyzer from "@next/bundle-analyzer";
 import type { NextConfig } from "next";
-import { headers } from "./headers.config.mjs";
+import { headers } from "./headers.config";
 
 let nextConfig: NextConfig = {
 	// type checking is done in CI
