@@ -28,6 +28,11 @@
 			}
 		}
 	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
+	},
 	"overrides": [
 		{
 			// VSCode JSON files are actually JSONC
@@ -68,20 +73,6 @@
 				"rules": {
 					"style": {
 						"useNamingConvention": "off"
-					}
-				}
-			}
-		},
-		{
-			// styles.css is a TailwindCSS file
-			"includes": ["src/app/styles.css"],
-			"linter": {
-				"rules": {
-					"correctness": {
-						"noUnknownProperty": "off"
-					},
-					"suspicious": {
-						"noUnknownAtRules": "off"
 					}
 				}
 			}
