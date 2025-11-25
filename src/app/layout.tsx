@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ClientAnalytics } from "../components/client-analytics";
 import { Footer } from "../components/footer";
 import { env } from "../env";
-import "./styles.css";
+import "./globals.css";
 
 export const metadata: Metadata = {
 	title: "Steam Bookmarks",

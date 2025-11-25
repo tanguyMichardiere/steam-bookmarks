@@ -78,8 +78,8 @@
 			}
 		},
 		{
-			// styles.css is a TailwindCSS file
-			"includes": ["src/app/styles.css"],
+			// globals.css is a TailwindCSS file
+			"includes": ["src/app/globals.css"],
 			"linter": {
 				"rules": {
 					"correctness": {
