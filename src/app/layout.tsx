@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 export default function RootLayout(props: LayoutProps<"/">) {
 	return (
 		<html className="h-full" lang="en">
-			{env.ANALYTICS && <ClientAnalytics />}
 			<body className="font-sans antialiased h-full flex flex-col">
 				{props.children}
 				<Footer />
+				{env.ANALYTICS && <ClientAnalytics />}
 			</body>
 		</html>
 	);

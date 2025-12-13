@@ -2,13 +2,13 @@ import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
 export const env = createEnv({
-	emptyStringAsUndefined: true,
-	experimental__runtimeEnv: {},
 	server: {
-		API_KEY: z.string(),
-		REDIS_URL: z.optional(z.string()),
+		NODE_ENV: z.enum(["development", "production", "test"]),
 		LOG_LEVEL: z.enum(["debug", "info", "warning", "error", "silent"]).default("warning"),
 		ANALYTICS: z.stringbool().default(true),
-		NODE_ENV: z.enum(["development", "production", "test"]),
+		API_KEY: z.string(),
+		REDIS_URL: z.optional(z.string()),
 	},
+	emptyStringAsUndefined: true,
+	experimental__runtimeEnv: {},
 });

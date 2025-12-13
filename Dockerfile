@@ -19,8 +19,8 @@ RUN API_KEY="API_KEY" ALLOW_HTTP="true" npm run build:standalone
 FROM node:24-alpine AS runner
 
 WORKDIR /app
-ENV NODE_ENV=production \
-    NEXT_TELEMETRY_DISABLED=1 \
+ENV NEXT_TELEMETRY_DISABLED=1 \
+    NODE_ENV=production \
     ANALYTICS=false
 
 RUN addgroup --system --gid 1001 nodejs
