@@ -55,7 +55,6 @@ export function createGameSettingsStore(gameId: string) {
 				},
 				moveBookmark(bookmarkId: number, direction: "left" | "right") {
 					set(({ bookmarks }) => {
-						// TODO: refactor
 						const bookmarkIndex = bookmarks.findIndex(({ id }) => id === bookmarkId);
 						const bookmark = bookmarks[bookmarkIndex];
 						if (bookmark !== undefined) {
