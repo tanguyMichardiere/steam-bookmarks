@@ -1,5 +1,11 @@
-import { LoadingPage } from "../../components/loading-page";
+import { LoadingSpinner } from "../../components/loading-spinner";
 
 export default function Loading() {
-	return <LoadingPage />;
+	return (
+		<div className="hero bg-base-200 h-full">
+			<div className="hero-content text-center">
+				<LoadingSpinner />
+			</div>
+		</div>
+	);
 }
